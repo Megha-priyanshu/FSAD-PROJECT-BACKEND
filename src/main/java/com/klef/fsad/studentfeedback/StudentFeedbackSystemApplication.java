@@ -4,6 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @SpringBootApplication
 @RestController
@@ -15,15 +17,23 @@ public class StudentFeedbackSystemApplication
     }
 
     @GetMapping("/")
-    public String home()
+    public Map<String, Object> home()
     {
-        return "✅ StudentFeedback System API is running! " +
-               "Visit /swagger-ui.html for API documentation.";
+        Map<String, Object> response = new LinkedHashMap<>();
+        response.put("app", "StudentFeedback System API");
+        response.put("message", "Backend is running");
+        response.put("status", "UP");
+        response.put("version", "2.0.0");
+        response.put("swagger", "https://fsad-project-backend-442w.onrender.com/swagger-ui.html");
+        return response;
     }
 
     @GetMapping("/health")
-    public String health()
+    public Map<String, String> health()
     {
-        return "UP";
+        Map<String, String> response = new LinkedHashMap<>();
+        response.put("status", "UP");
+        response.put("message", "All systems operational");
+        return response;
     }
 }
